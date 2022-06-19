@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/scanner/qrcode_scanner_page.dart';
 // import "package:flutter_svg/flutter_svg.dart";
 import 'dispatch_list_page.dart';
 
@@ -182,12 +183,15 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10),
                         image: const DecorationImage(
-                          image: NetworkImage(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Emblem_of_Nepal_%282020%29.svg/250px-Emblem_of_Nepal_%282020%29.svg.png',
-                          ),
+                          image: AssetImage("assets/images/Emblem.png"),
                           fit: BoxFit.contain,
                         ),
                       ),
+                      // child: SvgPicture.asset(
+                      //   "assets/images/Emblem.svg",
+                      //   semanticsLabel: "Emblem logo",
+                      //   fit: BoxFit.contain,
+                      // ),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 25),
@@ -201,15 +205,22 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(10),
+                      child: InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const QrcodeScannerPage())),
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Center(
+                              child: FaIcon(FontAwesomeIcons.qrcode)),
                         ),
-                        child: const Center(
-                            child: FaIcon(FontAwesomeIcons.qrcode)),
                       ),
                     )
                   ],
