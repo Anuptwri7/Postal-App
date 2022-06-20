@@ -50,12 +50,13 @@ class _QrcodeScannerPageState extends State<QrcodeScannerPage> {
       key: qrKey,
       onQRViewCreated: onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          // borderColor: Theme.of(context).canvasColor,
-          borderColor: Colors.green,
-          borderRadius: 10,
-          borderLength: 20,
-          borderWidth: 10,
-          cutOutSize: MediaQuery.of(context).size.width * 0.80),
+        // borderColor: Theme.of(context).canvasColor,
+        borderColor: Colors.green,
+        borderRadius: 10,
+        borderLength: 20,
+        borderWidth: 10,
+        cutOutSize: MediaQuery.of(context).size.width * 0.80,
+      ),
     );
   }
 

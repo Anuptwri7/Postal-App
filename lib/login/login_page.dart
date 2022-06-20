@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:postal_app/TabPage/tab_pages.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/api_constant.dart';
 
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void validateForm() async {
     if (kDebugMode) {}
     if (nametextEditingController.text.isEmpty) {
-      Fluttertoast.showToast(msg: "UserName Invalid");
+      Fluttertoast.showToast(msg: "Username Required");
     } else {
       login();
     }
@@ -192,11 +193,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(20)),
                     child: ElevatedButton(
                         onPressed: () async {
-                          // validateForm();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TabPage()));
+                          validateForm();
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => const TabPage()));
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
@@ -242,6 +243,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       if (response.statusCode == 200) {
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setInt(
+            "user_id", json.decode(response.body)['userId']);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => const TabPage()));
       } else {

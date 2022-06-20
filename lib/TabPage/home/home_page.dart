@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:postal_app/scanner/qrcode_scanner_page.dart';
 // import "package:flutter_svg/flutter_svg.dart";
-import 'dispatch_list_page.dart';
+import 'dispatch_master_page.dart';
 
 class HomeTabPage extends StatefulWidget {
   const HomeTabPage({Key? key}) : super(key: key);
@@ -124,7 +124,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const DispatchListScreen(),
+                            builder: (context) => const DispatchMasterScreen(),
                           ),
                         );
                       },
