@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:postal_app/scanner/qrcode_scanner_page.dart';
 // import "package:flutter_svg/flutter_svg.dart";
 import 'dispatch_master_page.dart';
 
@@ -206,11 +205,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: InkWell(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const QrcodeScannerPage())),
                         child: Container(
                           width: 50,
                           height: 50,

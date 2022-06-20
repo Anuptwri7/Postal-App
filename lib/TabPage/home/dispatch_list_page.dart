@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:postal_app/model/dispatch_list_model.dart';
 import 'package:postal_app/services/dispatch_list_services.dart';
@@ -19,6 +21,8 @@ class DispatchListScreen extends StatefulWidget {
 }
 
 class _DispatchListScreenState extends State<DispatchListScreen> {
+  String barcode = 'Scan to get result';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +133,6 @@ class _DispatchListScreenState extends State<DispatchListScreen> {
             if (snapshot.hasData) {
               try {
                 final List<DispatchListModel> snapshotData = snapshot.data;
-                log(snapshotData.length.toString());
                 return ListView.builder(
                     itemCount: snapshotData.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -192,13 +195,20 @@ class _DispatchListScreenState extends State<DispatchListScreen> {
                                           height: 40,
                                           width: 80,
                                           child: ElevatedButton(
-                                            onPressed: () async {
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => const DispatchListScreen(),
-                                              //   ),
-                                              // );
+                                            onPressed: () {
+                                              scanBarcode();
+                                              // .whenComplete(() => {
+                                              //       if (barcode == -1)
+                                              //         {
+                                              //           Navigator.push(
+                                              //             context,
+                                              //             MaterialPageRoute(
+                                              //               builder: (context) =>
+                                              //                   const AddDetailsPage(),
+                                              //             ),
+                                              //           ),
+                                              //         }
+                                              //     });
                                             },
                                             style: ButtonStyle(
                                                 backgroundColor:
@@ -277,5 +287,25 @@ class _DispatchListScreenState extends State<DispatchListScreen> {
             }
           },
         ));
+  }
+
+  Future<void> scanBarcode() async {
+    try {
+      final barcode = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.BARCODE,
+      );
+      log(barcode);
+
+      if (!mounted) return;
+
+      setState(() {
+        this.barcode = barcode;
+      });
+    } on PlatformException {
+      barcode = 'Failed to get platform version.';
+    }
   }
 }

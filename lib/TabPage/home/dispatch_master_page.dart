@@ -125,7 +125,6 @@ class _DispatchMasterScreenState extends State<DispatchMasterScreen> {
           if (snapshot.hasData) {
             try {
               final List<DispatchMasterList> snapshotData = snapshot.data;
-              log(snapshotData.length.toString());
 
               return ListView.builder(
                 itemCount: snapshotData.length,

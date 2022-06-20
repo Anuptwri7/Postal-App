@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
@@ -18,8 +17,6 @@ Future fetchDispatchList(String agentId) async {
     headers: headers,
     body: msg,
   );
-
-  log(response.body);
 
   try {
     if (response.statusCode == 200) {
