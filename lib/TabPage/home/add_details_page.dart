@@ -141,33 +141,36 @@ class _AddDetailsPageState extends State<AddDetailsPage> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 100,
-                      width: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.blue,
-                            offset: Offset(0.0, 1.0),
-                            blurRadius: 10.0,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          FaIcon(FontAwesomeIcons.camera),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Take Photo",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )
-                        ],
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 100,
+                        width: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.blue,
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 10.0,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            FaIcon(FontAwesomeIcons.camera),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Take Photo",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/signature/signature_page.dart';
+
+import '../../camera/captured_photo.dart';
 
 class SettingTabPage extends StatefulWidget {
   const SettingTabPage({Key? key}) : super(key: key);
@@ -9,11 +12,13 @@ class SettingTabPage extends StatefulWidget {
 }
 
 class _SettingTabPageState extends State<SettingTabPage> {
+  TextEditingController itemIdentifiertextEditingController =
+      TextEditingController();
   TextEditingController reciverNametextEditingController =
       TextEditingController();
   TextEditingController reciverPhonetextEditingController =
       TextEditingController();
-  TextEditingController remarkstextEditingController = TextEditingController();
+  TextEditingController locationtextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +85,21 @@ class _SettingTabPageState extends State<SettingTabPage> {
               children: [
                 Container(
                   child: TextField(
+                    controller: itemIdentifiertextEditingController,
+                    decoration: InputDecoration(
+                        label: const Text("Item Identifier"),
+                        labelStyle:
+                            const TextStyle(color: Colors.black, fontSize: 18),
+                        contentPadding: const EdgeInsets.all(15),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15))),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Container(
+                  child: TextField(
                     controller: reciverNametextEditingController,
                     decoration: InputDecoration(
                         label: const Text("Reciver Name"),
@@ -112,62 +132,68 @@ class _SettingTabPageState extends State<SettingTabPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 100,
-                      width: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.blue,
-                            offset: Offset(0.0, 1.0),
-                            blurRadius: 10.0,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          FaIcon(FontAwesomeIcons.signature),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Take Sign",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )
-                        ],
+                    InkWell(
+                      onTap: () => showSignatureDialog(context),
+                      child: Container(
+                        height: 100,
+                        width: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.blue,
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 10.0,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            FaIcon(FontAwesomeIcons.signature),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Take Sign",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      height: 100,
-                      width: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.blue,
-                            offset: Offset(0.0, 1.0),
-                            blurRadius: 10.0,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          FaIcon(FontAwesomeIcons.camera),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Take Photo",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )
-                        ],
+                    InkWell(
+                      onTap: () => showImageDialog(context),
+                      child: Container(
+                        height: 100,
+                        width: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.blue,
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 10.0,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            FaIcon(FontAwesomeIcons.camera),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Take Photo",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],
@@ -177,9 +203,9 @@ class _SettingTabPageState extends State<SettingTabPage> {
                 ),
                 Container(
                   child: TextField(
-                    controller: remarkstextEditingController,
+                    controller: locationtextEditingController,
                     decoration: InputDecoration(
-                        label: const Text("Remarks"),
+                        label: const Text("Location"),
                         labelStyle:
                             const TextStyle(color: Colors.black, fontSize: 18),
                         contentPadding: const EdgeInsets.all(15),
