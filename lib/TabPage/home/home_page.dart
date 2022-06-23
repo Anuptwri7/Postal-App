@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/Attempt/atttempt_list_page.dart';
 // import "package:flutter_svg/flutter_svg.dart";
 import 'dispatch_master_page.dart';
 
@@ -139,6 +140,42 @@ class _HomeTabPageState extends State<HomeTabPage> {
                           )),
                       child: const Text(
                         "Dispatch",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AttemptListScreen(),
+                          ),
+                        );
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff5073d9)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          )),
+                      child: const Text(
+                        "Attempted",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

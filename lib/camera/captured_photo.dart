@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -73,7 +74,8 @@ void _getFromGallery(context) async {
   // setState(() {
   imageFile = File(pickedFile!.path);
   // });
-  log(imageFile!.path);
+
+  log(base64Encode(imageFile!.readAsBytesSync()));
   Navigator.pop(context);
 }
 
@@ -85,7 +87,7 @@ void _getFromCamera(context) async {
   );
   // setState(() {
   imageFile = File(pickedFile!.path);
-  log(imageFile!.path);
+  // log(base64Encode(imageFile!.readAsBytesSync()));
   // });
   Navigator.pop(context);
 }

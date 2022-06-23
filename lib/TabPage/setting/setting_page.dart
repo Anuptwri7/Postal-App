@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/services/add_details_services.dart';
 import 'package:postal_app/signature/signature_page.dart';
 
 import '../../camera/captured_photo.dart';
@@ -222,12 +223,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                     width: 150,
                     child: ElevatedButton(
                       onPressed: () async {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const DispatchListScreen(),
-                        //   ),
-                        // );
+                        await addDetailsPost();
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
@@ -249,6 +245,21 @@ class _SettingTabPageState extends State<SettingTabPage> {
                     ),
                   ),
                 ),
+                // SizedBox(
+                //   height: 120,
+                //   width: 120,
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(20),
+                //     child: imageFile == null
+                //         ? Image.network(
+                //             "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
+                //             fit: BoxFit.fill,
+                //           )
+                //         : Image.memory(
+                //             byteData!.buffer.asUint8List(),
+                //           ),
+                //   ),
+                // )
               ],
             ),
           ),

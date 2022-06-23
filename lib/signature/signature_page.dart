@@ -1,18 +1,29 @@
-import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import 'dart:ui' as ui;
+
+ui.Image? imageSignature;
+ByteData? byteData;
 
 void showSignatureDialog(BuildContext context) {
   final GlobalKey<SfSignaturePadState> keySignaturePad = GlobalKey();
 
-  void _handleclearbutton() {
+  void _clearbutton() {
     keySignaturePad.currentState?.clear();
   }
 
-  void _saveImage() {
-    keySignaturePad.currentState!.toImage();
-    log("message");
+  void _saveSignatureImage() async {
+    RenderSignaturePad boundary = keySignaturePad.currentContext
+        ?.findRenderObject() as RenderSignaturePad;
+    imageSignature = await boundary.toImage();
+    // log(base64Encode(imageSignature!.readAsBytesSync()));
+    byteData =
+        await (imageSignature!.toByteData(format: ui.ImageByteFormat.png));
+    // log(byteData!.buffer.asUint8List().toString());
+    Fluttertoast.showToast(msg: "Succesfully added signauture");
     Navigator.pop(context);
   }
 
@@ -36,7 +47,7 @@ void showSignatureDialog(BuildContext context) {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    _saveImage();
+                    _saveSignatureImage();
                   },
                   child: const Text("Save"),
                 ),
@@ -44,7 +55,7 @@ void showSignatureDialog(BuildContext context) {
                   width: 10.0,
                 ),
                 ElevatedButton(
-                  onPressed: _handleclearbutton,
+                  onPressed: _clearbutton,
                   child: const Text("Clear"),
                 )
               ],

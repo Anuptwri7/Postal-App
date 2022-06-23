@@ -247,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
             await SharedPreferences.getInstance();
         sharedPreferences.setInt(
             "user_id", json.decode(response.body)['userId']);
-        sharedPreferences.setString("OrganizationId",
+        sharedPreferences.setString("organizationId",
             json.decode(response.body)['organizationId'].toString());
         sharedPreferences.setString("uniqueUserId",
             json.decode(response.body)['uniqueUserId'].toString());
