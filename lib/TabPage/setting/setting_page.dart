@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/TabPage/tab_pages.dart';
 import 'package:postal_app/services/add_details_services.dart';
 import 'package:postal_app/signature/signature_page.dart';
 
 import '../../camera/captured_photo.dart';
+import '../home/home_page.dart';
 
 class SettingTabPage extends StatefulWidget {
   const SettingTabPage({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -47,20 +49,20 @@ class _SettingTabPageState extends State<SettingTabPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: const BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
-                          child: const Center(
-                              child: FaIcon(FontAwesomeIcons.angleLeft))),
-                    ),
-                  ),
+                  // Center(
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       Navigator.pop(context);
+                  //     },
+                  //     child: Container(
+                  //         height: 30,
+                  //         width: 30,
+                  //         decoration: const BoxDecoration(
+                  //             color: Colors.white, shape: BoxShape.circle),
+                  //         child: const Center(
+                  //             child: FaIcon(FontAwesomeIcons.angleLeft))),
+                  //   ),
+                  // ),
                   const SizedBox(
                     width: 100,
                   ),
@@ -81,7 +83,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
+            padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
             child: Column(
               children: [
                 Container(
@@ -224,6 +226,7 @@ class _SettingTabPageState extends State<SettingTabPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await addDetailsPost();
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TabPage()));
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

@@ -17,14 +17,14 @@ class DispatchListModel {
     required this.itemIdentifier,
     required this.isDelivered,
     required this.isAttempted,
-    this.createdDate,
+    // this.createdDate,
   });
 
   int? uniqueId;
   String itemIdentifier;
   bool isDelivered;
   bool isAttempted;
-  DateTime? createdDate;
+  // DateTime? createdDate;
 
   factory DispatchListModel.fromJson(Map<String, dynamic> json) =>
       DispatchListModel(
@@ -32,7 +32,7 @@ class DispatchListModel {
         itemIdentifier: json["itemIdentifier"],
         isDelivered: json["isDelivered"],
         isAttempted: json["isAttempted"],
-        createdDate: json["createdDate"],
+        // createdDate: json["createdDate"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +40,6 @@ class DispatchListModel {
         "itemIdentifier": itemIdentifier,
         "isDelivered": isDelivered,
         "isAttempted": isAttempted,
-        "createdDate": createdDate,
+        // "createdDate": createdDate,
       };
 }

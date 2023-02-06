@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/Informed/infromedPage.dart';
 import 'package:postal_app/model/dispatch_list_model.dart';
 import 'package:postal_app/services/dispatch_list_services.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../setting/setting_page.dart';
 
 class DispatchListScreen extends StatefulWidget {
   final agentId;
@@ -191,45 +194,49 @@ class _DispatchListScreenState extends State<DispatchListScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        SizedBox(
-                                          height: 40,
-                                          width: 80,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              scanBarcode();
-                                              // .whenComplete(() => {
-                                              //       if (barcode == -1)
-                                              //         {
-                                              //           Navigator.push(
-                                              //             context,
-                                              //             MaterialPageRoute(
-                                              //               builder: (context) =>
-                                              //                   const AddDetailsPage(),
-                                              //             ),
-                                              //           ),
-                                              //         }
-                                              //     });
-                                            },
-                                            style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        const Color(
-                                                            0xff5073d9)),
-                                                shape:
-                                                    MaterialStateProperty.all<
-                                                        RoundedRectangleBorder>(
-                                                  const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
-                                                  ),
-                                                )),
-                                            child: const Text(
-                                              "scan",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
+                                        Visibility(
+                                          visible: snapshotData[index].isDelivered==true?false:true,
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 80,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                // scanBarcode();
+
+                                                // .whenComplete(() => {
+                                                //       if (barcode == -1)
+                                                //         {
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const SettingTabPage(),
+                                                            ),
+                                                          );
+                                                //         }
+                                                //     });
+                                              },
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          const Color(
+                                                              0xff5073d9)),
+                                                  shape:
+                                                      MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                    const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                    ),
+                                                  )),
+                                              child: const Text(
+                                                "scan",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -237,31 +244,78 @@ class _DispatchListScreenState extends State<DispatchListScreen> {
                                         const SizedBox(
                                           width: 20,
                                         ),
-                                        SizedBox(
-                                          height: 40,
-                                          width: 150,
-                                          child: ElevatedButton(
-                                            onPressed: () async {},
-                                            style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        const Color.fromARGB(
-                                                            255, 231, 4, 4)),
-                                                shape:
-                                                    MaterialStateProperty.all<
-                                                        RoundedRectangleBorder>(
-                                                  const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
+                                        Visibility(
+                                          visible: snapshotData[index].isDelivered==true?true:false,
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 150,
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+
+
+                                              },
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      const Color.fromARGB(
+                                                          0, 0, 4, 6)),
+                                                  shape:
+                                                  MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                    const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)),
+                                                    ),
+                                                  )),
+                                              child: const Text(
+                                                "Delivered",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: snapshotData[index].isDelivered==true?false:true,
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: 150,
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    const InformedPage(),
                                                   ),
-                                                )),
-                                            child: const Text(
-                                              "Informed",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
+                                                );
+
+                                              },
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          const Color.fromARGB(
+                                                              255, 231, 4, 4)),
+                                                  shape:
+                                                      MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                    const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                    ),
+                                                  )),
+                                              child: const Text(
+                                                "Informed",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
                                               ),
                                             ),
                                           ),

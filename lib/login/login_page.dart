@@ -8,6 +8,7 @@ import 'package:postal_app/TabPage/tab_pages.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../checkAuth.dart';
 import '../constant/api_constant.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 100, left: 35),
+                  padding: const EdgeInsets.only(top: 100, left: 10),
                   child: const Text(
                     "Welcome! ",
                     style: TextStyle(
@@ -77,10 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 42),
+                  padding: const EdgeInsets.only(left: 10),
                   child: const Text(
                     "Sign in to Continue.",
                     style: TextStyle(
@@ -93,8 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                 ),
                 Container(
-                  width: 250,
-                  margin: const EdgeInsets.only(left: 50),
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(left: 10,right: 10),
                   child: TextField(
                     controller: nametextEditingController,
                     decoration: InputDecoration(
@@ -107,11 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 25.0,
+                  height: 10.0,
                 ),
                 Container(
-                  width: 250,
-                  margin: const EdgeInsets.only(left: 50),
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(left: 10,right: 10),
                   child: TextField(
                     obscureText: !_passwordVisible,
                     enableSuggestions: false,
@@ -139,26 +140,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(15))),
                   ),
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forget Password?",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(left: 30),
+                //     child: TextButton(
+                //       onPressed: () {},
+                //       child: const Text(
+                //         "Forget Password?",
+                //         style: TextStyle(
+                //           color: Colors.white,
+                //           fontSize: 17,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 15.0,
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 35),
+                  margin: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       Checkbox(
@@ -178,7 +179,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Remember me",
                           style: TextStyle(color: Colors.white, fontSize: 17),
                         ),
-                      )
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "Forget Password?",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -233,31 +244,36 @@ class _LoginScreenState extends State<LoginScreen> {
     };
     final msg = jsonEncode({
       "username": nametextEditingController.text,
+      "password": passwordtextEditingController.text,
     });
     var response = await http.post(
-      Uri.parse(baseUrl + "/login"),
+      Uri.parse(baseUrl+'/api/Home/login'),
       headers: headers,
       body: msg,
     );
     log(response.body);
-
     try {
+
       if (response.statusCode == 200) {
+        nametextEditingController.clear();
+        passwordtextEditingController.clear();
+        log("Done");
         final SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setInt(
             "user_id", json.decode(response.body)['userId']);
+        sharedPreferences.setString("name", json.decode(response.body)['fullName']);
+        log(sharedPreferences.getString("name").toString());
         sharedPreferences.setString("organizationId",
             json.decode(response.body)['organizationId'].toString());
         sharedPreferences.setString("uniqueUserId",
             json.decode(response.body)['uniqueUserId'].toString());
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const TabPage()));
+            context, MaterialPageRoute(builder: (context) => const AuthCheckPage()));
       } else {
-        Fluttertoast.showToast(msg: "Something went error");
+        Fluttertoast.showToast(msg: response.body);
         // Navigator.push(context,
         //     MaterialPageRoute(builder: (context) => const LoginScreen()));
-
       }
     } catch (e) {
       throw Exception(e);

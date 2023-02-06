@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:postal_app/constant/api_constant.dart';
 
 import '../model/attempt_list_model.dart';
 
@@ -10,7 +11,7 @@ Future fetchAttemptList() async {
   };
 
   final response = await http.get(
-    Uri.parse("http://202.51.74.57/api/home/attemptlist"),
+    Uri.parse(baseUrl+"/api/home/attemptlist"),
     headers: headers,
   );
   log(response.statusCode.toString());

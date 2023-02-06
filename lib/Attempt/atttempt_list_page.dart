@@ -132,7 +132,7 @@ class _AttemptListScreenState extends State<AttemptListScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
                           width: double.infinity,
-                          height: 100,
+                          height: MediaQuery.of(context).size.height/7,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
@@ -145,7 +145,7 @@ class _AttemptListScreenState extends State<AttemptListScreen> {
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,21 +154,21 @@ class _AttemptListScreenState extends State<AttemptListScreen> {
                                   "Id:${snapshotData[index].organizationId}",
                                   style: const TextStyle(
                                       overflow: TextOverflow.ellipsis,
-                                      fontSize: 20,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
+
                                 const SizedBox(
-                                  height: 8,
+                                  height: 5,
                                 ),
                                 Text(
                                   "Item Identifier:${snapshotData[index].itemIdentifier}",
                                   style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
+
+
                               ],
                             ),
                           ),

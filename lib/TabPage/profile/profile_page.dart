@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:postal_app/login/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../checkAuth.dart';
 
 class ProfileTabPage extends StatefulWidget {
   const ProfileTabPage({Key? key}) : super(key: key);
@@ -14,12 +18,29 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
   TextEditingController reciverPhonetextEditingController =
       TextEditingController();
   TextEditingController remarkstextEditingController = TextEditingController();
+  String? name='' ;
+  Future<void> getDetails() async{
+      SharedPreferences prefs =await SharedPreferences.getInstance();
+      setState(() {
+        name = prefs.getString("name").toString();
+      });
+
+  }
+
+  @override
+  void initState(){
+
+      name;
+      getDetails();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -35,47 +56,13 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
                 bottomLeft: Radius.circular(15.0),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: const BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
-                          child: const Center(
-                              child: FaIcon(FontAwesomeIcons.angleLeft))),
-                    ),
-                  ),
-                  // const SizedBox(
-                  //   width: 100,
-                  // ),
-                  // const Center(
-                  //   child: Text(
-                  //     "Add Details",
-                  //     style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontSize: 18,
-                  //         fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
+
           ),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
+            padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
             child: Column(
               children: [
                 Stack(
@@ -128,22 +115,23 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
                     ),
                   ],
                 ),
-                const Text(
-                  "Name Admin",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                 Container(
+                   child:
+                   Text(
+                    "${name.toString()}",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                 ),
-                const Text(
-                  'Designer',
-                  style: TextStyle(color: Colors.blueGrey, fontSize: 14),
-                ),
+                 ),
+
+
                 const SizedBox(
                   height: 30,
                 ),
                 Container(
-                  height: 110,
+                  height: MediaQuery.of(context).size.height/6,
                   decoration: const BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -263,12 +251,15 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
                     width: 150,
                     child: ElevatedButton(
                       onPressed: () async {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const DispatchListScreen(),
-                        //   ),
-                        // );
+                        SharedPreferences pref =await SharedPreferences.getInstance();
+                      pref.clear();
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AuthCheckPage(),
+                          ),
+                        );
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
@@ -294,5 +285,6 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
             ),
           ),
         ));
+
   }
 }

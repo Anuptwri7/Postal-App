@@ -31,7 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
+  battery_plus:
+  search_choices: ^2.0.20
   flutter_svg: ^1.1.0
+
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
   http: ^0.13.4

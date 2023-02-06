@@ -55,7 +55,8 @@ void showImageDialog(BuildContext context) {
                     Text(
                       "gallery",
                       style: TextStyle(color: Colors.purple),
-                    )
+                    ),
+
                   ],
                 ),
               ),

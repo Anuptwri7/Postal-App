@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
@@ -22,7 +22,7 @@ void showSignatureDialog(BuildContext context) {
     // log(base64Encode(imageSignature!.readAsBytesSync()));
     byteData =
         await (imageSignature!.toByteData(format: ui.ImageByteFormat.png));
-    // log(byteData!.buffer.asUint8List().toString());
+     log(byteData!.buffer.asUint8List().toString());
     Fluttertoast.showToast(msg: "Succesfully added signauture");
     Navigator.pop(context);
   }
